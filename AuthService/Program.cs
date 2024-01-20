@@ -1,0 +1,1 @@
+﻿Console.WriteLine("Auth service started");

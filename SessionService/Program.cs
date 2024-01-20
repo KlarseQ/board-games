@@ -1,0 +1,1 @@
+﻿Console.WriteLine("Session service started");
