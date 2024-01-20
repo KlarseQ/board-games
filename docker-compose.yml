@@ -1,0 +1,27 @@
+﻿services:
+  
+  # minimal api
+  minimal-api:
+    container_name: minimal-api
+    image: minimal-api:1.0.4
+    build:
+      context: .
+      dockerfile: DataBaseMinimalApi/Dockerfile
+    ports:
+      - "5061:80"
+    restart: unless-stopped
+    depends_on:
+      - postgres-db
+    environment:
+      - ConnectionStrings:Default=Server=postgres-db;Port=5432;Database=PostgreSQL;User Id=postgres;Password=root;
+
+  # postgres
+  postgres-db:
+    image: postgres:13.3
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "PostgreSQL"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "root"
+    ports:
+      - "5432:5432"
