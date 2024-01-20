@@ -3,12 +3,12 @@
   # minimal api
   minimal-api:
     container_name: minimal-api
-    image: minimal-api:1.0.4
+    image: minimal-api:1.0.2
     build:
       context: .
       dockerfile: DataBaseMinimalApi/Dockerfile
     ports:
-      - "5061:80"
+      - "7000:8080"
     restart: unless-stopped
     depends_on:
       - postgres-db

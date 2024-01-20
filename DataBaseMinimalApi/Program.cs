@@ -16,6 +16,12 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await dbContext.Database.MigrateAsync();
+}
+
 app.MapGet("/players", async (AppDbContext context) => {
     var players = await context.Set<Player>().ToListAsync();
     return players.Count == 0 ? Results.NotFound("No players already created") : Results.Ok(players);
@@ -48,5 +54,6 @@ app.MapDelete("/player/{id:int}", async (int id, AppDbContext context) => {
     await context.SaveChangesAsync();
     return Results.Ok();
 });
+
 
 app.Run();
